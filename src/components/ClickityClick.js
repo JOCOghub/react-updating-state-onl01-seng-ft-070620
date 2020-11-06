@@ -1,42 +1,31 @@
-// Code ClickityClick Component Here
-import React, {Component} from 'react';
+import React from 'react';
  
-class ButtonCounter extends Component {
+class LightSwitch extends React.Component {
   constructor() {
-    super()
-    // initial state has count set at 0
+    super();
+ 
+    // Initial state is defined
     this.state = {
-      count: 0
-    }
+      toggled: false
+    };
   }
  
+  // when handleClick is called, setState will update the state so that toggle is reversed
   handleClick = () => {
-    // when handleClick is called, newCount is set to whatever this.state.count is plus 1 PRIOR to calling this.setState
-    let newCount = this.state.count + 1
-    this.setState({
-      count: newCount
+    this.setState(previousState => {
+      return {
+        toggled: !previousState.toggled
+      }
     })
   }
  
   render() {
     return (
       <div>
-        <h1>{this.state.count}</h1>
-        <button onClick={this.handleClick}>Click Me</button>
+        <button onClick={this.handleClick}>{this.state.toggled ? "ON" : "OFF"}</button>
       </div>
-    )
+    );
   }
 }
  
-export default ButtonCounter
-This works, but React actually provides a built in solution. Instead of passing an object into setState, we can also pass a function. That function, when called inside setState will be passed the component state from when that setState was called. This is typically referred to as the previous state. With this knowledge, we can rewrite the handleClick function to:
-
-...
- 
-handleClick = () => {
-    this.setState(previousState => {
-      return {
-        count: previousState.count + 1
-      }
-    })
-  }
+export default LightSwitch;
